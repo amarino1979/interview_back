@@ -12,7 +12,11 @@ const port = 3000
 mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
 mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 
-mongoose.connect('mongodb://localhost:27017/clients', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/clients', { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
 mongoose.connection.once('open', () => {
     console.log('connected to mongoose...')
 })

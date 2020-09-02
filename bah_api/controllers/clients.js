@@ -25,7 +25,22 @@ clients.get('/soldiers', (req, res) => {
 
 // Delete Route
 clients.delete('/:id', (req, res) => {
-    
+    Client.findByIdAndRemove(req.params.id, (err, deletedClient) => {
+        if (err) {
+            res.status(400).json({ error: err.message })
+        }
+        res.status(200).json(deletedClient)
+    })
+})
+
+// Update Route
+clients.put('/:id', (req, res) => {
+    Client.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedClient) => {
+        if (err) {
+            res.status(400).json({ error: err.message })
+        }
+        res.status(200).json(updatedClient)
+    })
 })
 
 module.exports = clients
