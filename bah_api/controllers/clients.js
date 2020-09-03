@@ -14,7 +14,7 @@ clients.post('/', async (req, res) => {
 })
 
 // Index Route
-clients.get('/soldiers', (req, res) => {
+clients.get('/', (req, res) => {
     Client.find({}, (err, foundClient) => {
         if (err) {
             res.status(400).json({ error: err. message })

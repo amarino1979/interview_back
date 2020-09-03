@@ -6,7 +6,7 @@ const app = express()
 const cors = require('cors')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
-const port = 3000
+const port = 3003
 
 
 // Error / Disconnection
@@ -27,16 +27,18 @@ app.use(express.json()) //use .json(), not urlencoded()
 
 const whitelist = ['http://localhost:3000']
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        }else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
-}
+    origin: (origin, callback) => {
+      if (whitelist.indexOf(origin) >= -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  };
+  
+  app.use(cors(corsOptions));
 
-app.use(cors(corsOptions))
+
 // Router Controller //
 const clientsController = require('./controllers/clients.js')
 app.use('/clients', clientsController)
